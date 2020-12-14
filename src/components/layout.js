@@ -1,53 +1,49 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.com/docs/use-static-query/
- */
+import PropTypes from "prop-types";
+import React from "react";
 
-import React from "react"
-import PropTypes from "prop-types"
-import { useStaticQuery, graphql } from "gatsby"
+import Header from "./header";
 
-import Header from "./header"
-import "./layout.css"
-
-const Layout = ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
-
+function Layout({ children }) {
   return (
-    <>
-      <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: 960,
-          padding: `0 1.0875rem 1.45rem`,
-        }}
-      >
-        <main>{children}</main>
-        <footer style={{
-          marginTop: `2rem`
-        }}>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.com">Gatsby</a>
-        </footer>
-      </div>
-    </>
-  )
+    <div className="flex flex-col min-h-screen font-sans text-gray-900">
+      <Header />
+
+      <main className="flex-1 w-full max-w-4xl px-4 py-8 mx-auto md:px-8 md:py-16">
+        {children}
+      </main>
+
+      <footer className="bg-blue-700">
+        <nav className="flex justify-between max-w-4xl p-4 mx-auto text-sm md:p-8">
+          <p className="text-white">
+            Created by{` `}
+            <a
+              className="font-bold no-underline"
+              href="https://bryant.io"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Taylor Bryant
+            </a>
+          </p>
+
+          <p>
+            <a
+              className="font-bold text-white no-underline"
+              href="https://github.com/taylorbryant/gatsby-starter-tailwind"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub
+            </a>
+          </p>
+        </nav>
+      </footer>
+    </div>
+  );
 }
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
-}
+};
 
-export default Layout
+export default Layout;
